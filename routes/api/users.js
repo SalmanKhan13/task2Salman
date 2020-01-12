@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const config = require("config");
-const validateLoginInput = require('../../validation/login');
+const validateRegisterInput = require('../../validation/login');
 const User = require("../../models/User");
 
 router.get('/', (req, res) => {
@@ -13,18 +13,17 @@ router.get('/', (req, res) => {
 // @desc    Submit User /
 // @access  Public
 router.post('/', (req, res) => {
-  const { errors, isValid } = validateLoginInput(req.body);
+  const { errors, isValid } = validateRegisterInput(req.body);
 
-  // //Check Validation
+  // Check Validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
   const fname = req.body.firstname;
   const lname = req.body.lastname;
   const email = req.body.email;
   const phone_no = req.body.phone_no;
-  const confirm_email = req.body.confirm_email;
+  const confirm_emails = req.body.confirm_email;
   const address = req.body.address;
   const gender = req.body.gender;
   const newUser = new User({
@@ -32,7 +31,7 @@ router.post('/', (req, res) => {
     lastname: lname,
     phone_no: phone_no,
     email: email,
-    confirm_email: confirm_email,
+    confirm_email: confirm_emails,
     address: address,
     gender: gender
   });
@@ -41,6 +40,7 @@ router.post('/', (req, res) => {
     .save()
     .then(user => res.json(user))
     .catch(err => console.log(err));
+
 });
 
 

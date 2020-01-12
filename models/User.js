@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     type: String
   },
   phone_no: {
-    type: String,
+    type: Number,
     required: true
   },
   email: {
@@ -19,16 +19,19 @@ const UserSchema = new Schema({
     required: true
   },
   confirm_email: {
-    type: String
-
+    type: String,
+    required: true
   },
   address: {
     type: String
 
   },
   gender: {
+    type: String,
+    required: true
+  },
+  text_area: {
     type: String
-
   },
   date: {
     type: Date,
